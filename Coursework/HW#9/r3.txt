@@ -1,0 +1,8 @@
+> Effort<- c(20, 20, 20, 20, 20, 20, 20, 20)
+> Catch <- c(20, 18, 18, 16, 15, 15, 13, 15)
+> CPUE = Catch/Effort
+[1] 1.00 0.90 0.90 0.80 0.75 0.75 0.65 0.75
+> CC = c(0,cumsum(Catch)[1:(length(Catch) - 1)])
+[1]   0  20  38  56  72  87 102 115
+
+> scatterplot(CPUE, CC, boxplots = FALSE)

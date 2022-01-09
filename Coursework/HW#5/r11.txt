@@ -1,0 +1,21 @@
+> est.R = mean(y_samp)/mean((x_samp)^2)
+    [1] 0.723479
+
+> mu_x = mean(X^2)
+    [1] 21.622
+
+> est.mu_y = est.R*mu_x
+    [1] 15.64306
+
+> MSE <- sum((y_samp - est.R*(x_samp^2))^2)
+            /(length(y_samp) - 1)
+    [1] 45.57133
+
+> est.V = ((length(X) - length(y_samp))/length(X))
+            *(MSE/length(y_samp))
+    [1] 1.291188
+
+> ConfidenceInterval <- c(est.mu_y + 2*sqrt(est.V), 
+                          est.mu_y - 2*sqrt(est.V))
+    [1] 17.91567 13.37045
+

@@ -1,0 +1,18 @@
+> x <- c(10,11,13,11,10,6,22,15,14,23)
+> n_sim <- 100000 # Number of boostrapped samples
+> stored_means <- rep(NA,n_sim) #Storage Vector
+
+> for(i in 1:n_sim){  
++     temp_samp <- sample(x, size = 4, replace=TRUE)  
++     stored_means[i] <- mean(temp_samp)
++   }
+
+> bootstrapped_mean = mean(stored_means)
+> bootstrapped_SE = sd(stored_means)
+> bootstrapped_CI = c(bootstrapped_mean + 2*sd(stored_means), 
+                      bootstrapped_mean - 2*sd(stored_means))
+
+> print(bootstrapped_mean)
+    [1] 13.50019
+> print(bootstrapped_CI)
+    [1] 18.582566  8.417804

@@ -1,0 +1,11 @@
+s_squared
+[1] 625   1
+
+Optimal_Allocation = 
+    (N*sqrt(s_squared))/sum((N*sqrt(s_squared)))
+[1] 0.7352941 0.2647059
+
+> NumberOfSamples = 
+    (sum(N^2*s_squared/Optimal_Allocation))/
+        (sum(N)^2*(1/4)+sum(N*s_squared))
+[1] 7.615283

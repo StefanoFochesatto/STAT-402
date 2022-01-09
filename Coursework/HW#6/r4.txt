@@ -1,0 +1,28 @@
+
+> Strata_1 = sample(pop[1:20], size = 2, replace=FALSE)
+    [1]  54 148
+> Strata_2 = sample(pop[21:40], size = 2, replace=FALSE)
+    [1] 209 222
+> Strata_3 = sample(pop[41:60], size = 2, replace=FALSE)
+    [1] 230 256
+> Strata_4 = sample(pop[61:80], size = 2, replace=FALSE)
+    [1] 202 198
+> Strata_5 = sample(pop[81:100], size = 2, replace=FALSE)
+    [1] 129  11
+
+> Strata_mean = c(mean(Strata_1), mean(Strata_2), 
+                  mean(Strata_3), mean(Strata_4), 
+                  mean(Strata_5))
+> W = 1/5
+
+> MeanEST = sum(W*Strata_mean)
+    [1] 165.9
+
+> Strata_Ssquared = c(var(Strata_1), var(Strata_2), 
+                      var(Strata_3), var(Strata_4), var(Strata_5))
+> POPCorrection = (20 - 2)/20
+> VarEST = sum(W^2*POPCorrection*(Strata_Ssquared/2))
+    [1] 212.589
+
+> CI <- c(MeanEST + 2*sqrt(VarEST), MeanEST - 2*sqrt(VarEST))
+    [1] 195.0609 136.7391

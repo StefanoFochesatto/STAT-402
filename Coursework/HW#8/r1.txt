@@ -1,0 +1,12 @@
+> df = data.frame(office, employees)
+> p = df$employees/sum(df$employees)
+    0.05117271 0.07462687 0.04264392 0.11087420 
+    0.03837953 0.03198294 0.05117271 0.13432836 
+    0.04477612 0.03624733 0.04904051 0.05543710 
+    0.09168443 0.10234542 0.03198294 0.05330490
+
+> Office_Sample  = sample(df$office, size = 5, replace = TRUE,prob = p)
+[1]  4  3  2  7 16
+
+> df$employees[Office_Sample]
+[1] 52 20 35 24 25

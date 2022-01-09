@@ -1,0 +1,104 @@
+## Seeing which keyfunction-adjustment pair provides the best fit
+> AIC(tmp_hn, tmp_hr, tmp_unif, tmp_hn_herm, 
+      tmp_hn_null, tmp_hn_poly, tmp_hr_herm, 
+      tmp_hr_null, tmp_hr_poly, tmp_unif_herm, 
+      tmp_unif_poly)
+
+              df      AIC
+tmp_hn         1 212.3018
+tmp_hr         2 213.2516
+tmp_unif       1 211.1484
+tmp_hn_herm    1 212.3018
+tmp_hn_null    1 212.3018
+tmp_hn_poly    1 212.3018
+tmp_hr_herm    2 213.2516
+tmp_hr_null    2 213.2516
+tmp_hr_poly    2 213.2516
+tmp_unif_herm  2 212.9460
+tmp_unif_poly  2 213.0254
+
+## We can see that it is the uniform function with cos adjustment 
+## Generating dataframe to compute abundance. 
+
+> D <- data.frame(distance=d, 
+                  Area = rep(10000,length(d)), 
+                  Region.Label=rep(1,length(d)), 
+                  Sample.Label = rep(1,length(d)), 
+                  Effort = rep(100, length(d)))
+> D
+   distance  Area Region.Label Sample.Label Effort
+1        14 10000            1            1    100
+2         2 10000            1            1    100
+3        16 10000            1            1    100
+4         2 10000            1            1    100
+5        26 10000            1            1    100
+6        38 10000            1            1    100
+7        13 10000            1            1    100
+8        22 10000            1            1    100
+9         5 10000            1            1    100
+10       17 10000            1            1    100
+11       16 10000            1            1    100
+12        4 10000            1            1    100
+13       28 10000            1            1    100
+14       11 10000            1            1    100
+15        5 10000            1            1    100
+16       16 10000            1            1    100
+17        6 10000            1            1    100
+18       10 10000            1            1    100
+19       14 10000            1            1    100
+20       17 10000            1            1    100
+21       14 10000            1            1    100
+22        9 10000            1            1    100
+23        7 10000            1            1    100
+24       12 10000            1            1    100
+25       38 10000            1            1    100
+26        5 10000            1            1    100
+27        2 10000            1            1    100
+28        4 10000            1            1    100
+29        1 10000            1            1    100
+30       26 10000            1            1    100
+
+## Refitting detectability model
+> tmp_unif_cos <- ds(data = D, transect = "line", key = 'unif', adjustment = 'cos')
+Starting AIC adjustment term selection.
+Fitting uniform key function with cosine(1) adjustments
+AIC= 211.148
+Fitting uniform key function with cosine(1,2) adjustments
+AIC= 212.702
+Uniform key function with cosine(1) adjustments selected.
+
+## Pulling density estimate from summary report. 
+> summary(tmp_unif_cos)
+Summary for distance analysis 
+Number of observations :  30 
+Distance range         :  0  -  38 
+
+Model : Uniform key function with cosine adjustment term of order 1 
+
+Strict monotonicity constraints were enforced.
+AIC   : 211.1484 
+
+Detection function parameters
+Scale coefficient(s):  
+NULL
+
+Adjustment term coefficient(s):  
+              estimate        se
+cos, order 1 0.7061412 0.1784585
+
+                     Estimate         SE        CV
+Average p            0.586118 0.06130662 0.1045977
+N in covered region 51.184236 8.05021737 0.1572792
+
+Summary statistics:
+  Region  Area CoveredArea Effort  n k  ER se.ER cv.ER
+1      1 10000        7600    100 30 1 0.3     0     0
+
+Abundance:
+  Label Estimate       se        cv      lcl      ucl       df
+1 Total 67.34768 10.81533 0.1605896 40.37697 112.3341 2.961142
+
+Density:
+  Label    Estimate          se        cv         lcl        ucl       df
+1 Total 0.006734768 0.001081533 0.1605896 0.004037697 0.01123341 2.961142
+> 

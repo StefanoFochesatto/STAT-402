@@ -1,0 +1,19 @@
+#Assigning Variables
+x_i = total_sick_days[Office_Sample]
+m_i = df$employees[Office_Sample]
+M = sum(df$employees)
+n = 5
+
+#Estimating tau
+est_tau = (M/n)*sum(x_i/m_i)
+[1] 695.4669
+
+#Computing Variance and CI
+> est_Var = (1/n)*(sum((((M*x_i)/m_i) - est_tau)^2)/(n-1))
+[1] 1822.809
+
+> se = sqrt(est_Var)
+[1] 42.69437
+
+> CI = c(est_tau + 2*se,est_tau - 2*se )
+[1] 780.8556 610.0781

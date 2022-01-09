@@ -1,0 +1,129 @@
+---
+title: "HW10stat402"
+author: "Ronald Barry"
+date: "11/12/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Problem One
+
+What is a likelihood in general? What does it mean when an estimator is a maximum likelihood estimator?
+
+#### Problem Two
+
+
+We are doing a small mark-recapture study. First we catch 20 fish in a lake and tag each one. Then, a few days later we catch 40 fish and notice that 6 were tagged.
+
+a) Is this direct or indirect sampling? Why?
+
+b) Produce a 95 percent confidence interval for the population size (using either Lincoln- Petersen or Chapman estimator).
+
+c) What assumptions do we need to compute the mark-recapture estimator in (b)?
+
+#### Problem Three
+
+Suppose we visited a site at five different equally- spaced times and trapped, marked and released animals each time. We will assume a closed model.
+
+(a) What is a closed model? When is it reasonable to assume that the population is closed? 
+
+(b) If the following data is what we obtained, look at the data (don?t analyze it) and try to explain what might be happening (and which model, $M_0$, $M_t$, $M_h$, $M_{th}$, etc., would be appropriate).
+
+```
+00100
+10000
+10000
+01000
+10000
+10000
+01000
+00100
+00010
+00100
+01000
+10000
+00010
+```
+
+Now, try to explain what type of closed population model might fit with this data:
+
+```
+11101
+00100
+01000
+00101
+11111
+01111
+00001
+10100
+00010
+11110
+01010
+01000
+11111
+```
+
+#### Problem Four
+
+Run the following code in R and choose which model (based on AIC) seems to have the
+best fit.  What abundance does this model estimate?
+
+```{r, eval=FALSE}
+library(Rcapture)
+dat <- matrix(ncol=5, byrow=TRUE, 
+  c(0,0,1,0,
+    0,0,0,1,
+    0,0,1,1,
+    0,0,0,1,
+    0,0,0,1,
+    1,0,0,1,
+    0,1,0,0,
+    0,0,0,1,
+    0,0,1,1,
+    0,1,0,1))
+```
+
+#### Problem Five
+
+Consider the $M_t$ model, where the probabilities are different for each time period.  If there are 3 time periods, the parameters are $p_1, p_2, p_3$.
+
+Suppose we have the dataset (one animal per line):
+
+```
+100
+100
+010
+011
+```
+
+Write down the likelihood for this dataset.
+
+#### Problem Six
+
+ The following data will cause problems with the open population model unless we force equal capture probabilities across all times. Why do you think that is the case? (The last column is the number of times that pattern occurred, so that the pattern 1 0 0 0 occurred 7 times.)
+b) Run the code below (in Rcapture, under the open population model) and state the population size.
+
+```{r, eval=FALSE}
+dat = matrix(ncol=5,byrow=TRUE,
+  c(1, 0, 0, 0, 7,
+    0, 1, 0, 0, 20,
+    0, 0, 1, 0, 37,
+    0, 0, 0, 1, 70,
+    1, 1, 0, 0, 7,
+    1, 0, 1, 0, 11,
+    1, 0, 0, 1, 20,
+    0, 1, 1, 0, 22,
+    0, 1, 0, 1, 52,
+    0, 0, 1, 1, 55,
+    1, 1, 1, 0, 4,
+    1, 1, 0, 1, 13,
+    1, 0, 1, 1, 15,
+    0, 1, 1, 1, 38,
+    1, 1, 1, 1, 14))
+openp(dat,dfreq=TRUE,m="up")
+openp(dat,dfreq=TRUE,m="ep")
+```
+

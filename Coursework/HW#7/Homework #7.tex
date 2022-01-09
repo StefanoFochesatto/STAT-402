@@ -1,0 +1,253 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% This top part of the document is called the 'preamble'.  Modify it with caution!
+%
+% The real document starts below where it says 'The main document starts here'.
+
+\documentclass[12pt]{article}
+
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+% Comment the following line to use TeX's default font of Computer Modern.
+
+\usepackage{times,txfonts}
+
+
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheoremstyle{homework}% name of the style to be used
+  {18pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {12pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {}% name of font to use in the body of the theorem
+  {}% measure of space to indent
+  {\bfseries}% name of head font
+  {:}% punctuation between head and body
+  {2ex}% space after theorem head; " " = normal interword space
+  {}% Manually specify head
+\theoremstyle{homework} 
+
+% Set up an Exercise environment and a Solution label.
+\newtheorem*{exercisecore}{Exercise \@currentlabel}
+\newenvironment{exercise}[1]
+{\def\@currentlabel{#1}\exercisecore}
+{\endexercisecore}
+
+\newcommand{\localhead}[1]{\par\smallskip\noindent\textbf{#1}\nobreak\\}%
+\newcommand\solution{\localhead{Solution:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Stuff for getting the name/document date/title across the header
+\makeatletter
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot[C]{\ifnum \value{page} > 1\relax\thepage\fi}
+\fancyhead[L]{\ifx\@doclabel\@empty\else\@doclabel\fi}
+\fancyhead[C]{\ifx\@docdate\@empty\else\@docdate\fi}
+\fancyhead[R]{\ifx\@docauthor\@empty\else\@docauthor\fi}
+\headheight 15pt
+
+\def\doclabel#1{\gdef\@doclabel{#1}}
+\doclabel{Use {\tt\textbackslash doclabel\{MY LABEL\}}.}
+\def\docdate#1{\gdef\@docdate{#1}}
+\docdate{Use {\tt\textbackslash docdate\{MY DATE\}}.}
+\def\docauthor#1{\gdef\@docauthor{#1}}
+\docauthor{Use {\tt\textbackslash docauthor\{MY NAME\}}.}
+\makeatother
+
+% Shortcuts for blackboard bold number sets (reals, integers, etc.)
+\newcommand{\Reals}{\ensuremath{\mathbb R}}
+\newcommand{\Nats}{\ensuremath{\mathbb N}}
+\newcommand{\Ints}{\ensuremath{\mathbb Z}}
+\newcommand{\Rats}{\ensuremath{\mathbb Q}}
+\newcommand{\Cplx}{\ensuremath{\mathbb C}}
+%% Some equivalents that some people may prefer.
+\let\RR\Reals
+\let\NN\Nats
+\let\II\Ints
+\let\CC\Cplx
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% The main document start here.
+
+% The following commands set up the material that appears in the header.
+\doclabel{STAT 402: Homework 7}
+\docauthor{Stefano Fochesatto}
+\docdate{\today}
+
+
+%\textbf{Code:}
+%\begin{center}
+ %   \lstinputlisting{r1.txt}
+%\end{center}
+
+\begin{document}
+
+\begin{exercise}{1}We want to know what proportion of ponds in a region have fish in them. However, 
+  the ponds occur in groups so that if we visit one pond we ought to just sample all ponds in the 
+  group. So we divide (using an aerial photo) the area into $N = 100$ clusters, each consisting of 
+  from one to five ponds. We will select (SRS) $n = 10$ of the clusters. We get the following results:\\
+
+\noindent * Cluster 1: $\tau_1 = 3$ ponds have fish, out of $M_1 = 4$ ponds.\\
+* Cluster 2: $\tau_2 = 2$ ponds have fish, out of $M_2 = 3$ ponds.  \\
+* Cluster 3: $\tau_3 = 1$ pond has fish, out of $M_3 = 4$ ponds. \\
+* Cluster 4: $\tau_4 = 1$ pond has fish, out of $M_4 = 3$ ponds. \\
+* Cluster 5: $\tau_5 = 3$ ponds have fish, out of $M_5 = 5$ ponds. \\
+* Cluster 6: $\tau_6 = 2$ ponds have fish, out of $M_6 = 4$ ponds. \\
+* Cluster 7: $\tau_7 = 4$ ponds have fish, out of $M_7 = 5$ ponds. \\
+* Cluster 8: $\tau_8 = 2$ ponds have fish, out of $M_8 = 2$ ponds. \\
+* Cluster 9: $\tau_9 = 4$ ponds have fish, out of $M_9 = 5$ ponds. \\
+* Cluster 10: $\tau_{10} = 5$ ponds have fish, out of $M_{10} = 5$ ponds.\\
+
+Find a 95 percent confidence interval for the proportion of ponds that have fish, in the region.\\
+\solution Since we do not know the total number of ponds in the in the region (no $M$) we have to use the 
+one stage cluster sample ratio estimator to compute the proportion. Using the ratio estimator in r we get,\\ 
+\textbf{Code:}
+\begin{center}
+   \lstinputlisting{r1.txt}
+\end{center}
+\end{exercise}
+\vspace{1in}
+
+
+\begin{exercise}{2}Read the paper Mortality Before and After the 2003 Invasion of Iraq (lancet.pdf). 
+  How did they conduct the sample? Why was cluster sampling the only reasonable way to conduct this survey?\\
+  \solution The paper describes a modified two-stage cluster sample. There were 33 clusters and in each cluster there sampled 30
+  households. The 33 clusters where randomly divided among the 18 governorates, then a second stage of reassignment was used to 
+  group the clusters in 6 pairs of governorates for safety and travel reasons. Without conducting an entire census the two-stage cluster 
+  sample gave the researchers the flexibility to actually conduct the experiment. Begin able to reassign clusters for safety, and take a reasonable sample 
+  in each cluster made this study possible. 
+\end{exercise}
+\vspace{1in}
+
+
+
+
+\begin{exercise}{3} We want to know the proportion of nests in a forest that are in current use. 
+  What we’ll do is divide the forest into $N = 10000$ 20m by 20m plots and count the number 
+  of nests $M_i$ in each of $n$ plots that we obtain from a simple random sample of plots. 
+  Once we get our n plots, we’ll select (SRS) $m_i$ nests in the ith plot and examine these. 
+  The number being used is $\tau_i$. This is similar to problem 1, but differs in one crucial way.
+
+  Plot $M_i$ $m_i$ $\tau_i$
+  
+  1, 52, 20, 12 
+  
+  2, 40, 20, 11 
+  
+  3, 35, 20, 15 
+  
+  4, 38, 20, 5 
+  
+  5, 51, 25, 12
+  
+  6,14, 20, 8
+  
+  7, 50, 25, 13 
+  
+  8, 42, 20, 9 
+  
+  9, 37, 20, 7 
+  
+  10, 30, 20, 14 
+  
+  11, 22, 20, 16 
+  
+  12, 12, 10, 4
+  
+\begin{enumerate}
+  \item[a.]Find a 95 percent confidence interval for the true proportion p.\\
+  \solution This problem is similar to the first since we will be using the ratio cluster sample estimator but 
+  this time we are working with a two-stage cluster sample. Computing the two-stage cluster sample estimator in r we get,\\
+  \textbf{Code:}
+\begin{center}
+   \lstinputlisting{r2.txt}
+\end{center}
+
+
+
+
+  \item[b.]When would you sample fewer clusters (plots) and more inside each cluster (plot)?\\
+  \solution We can sample fewer clusters and more inside each clusters when we know there is little variance 
+  between clusters and more variance inside of each cluster. This can occur if clusters in a sample vary wildly, but each cluster seems 
+  to exhibit the same behavior. Suppose we are estimating grass cover and each cluster exhibits the same level of patchiness, and the sample in each 
+  cluster have high variance. We can see this by computing the terms in the variance independently, in our case the cluster to cluster variability is a lot higher
+  so we would want to visit more clusters. In fact the variability inside each cluster seems very low and it might be better to sample less in each cluster.
+\end{enumerate} 
+\end{exercise}
+\vspace{1in}
+
+
+
+\begin{exercise}{4} 
+  Here's another two-stage cluster sampling problem.
+  
+  Suppose I want to know the total value of an inventory. There are $N = 30$ warehouses, 
+  and I don’t want to go to all of them. Also, each warehouse is too large to sample 
+  everything, though the items (should) be somewhat similar in value. I’ll select 
+  $n = 5$ warehouses as a SRS, then I’ll count the number of items ($M_i$), take a 
+  sample of $m_i = 20$ items from each warehouse, then get an average value and standard 
+  deviation from each warehouse:\\
+
+
+\noindent* warehouse 1: $M_1 = 2100$, $m_1 = 20$, $\overline{x}_1 = \$35.00$, $s_1 = \$10.00$. \\
+         * warehouse 2: $M_2 = 850$, $m_2 = 20$, $\overline{x}_2 = \$42.00$, $s_2 = \$12.00$. \\
+         * warehouse 3: $M_3 = 1500$, $m_3 = 20$, $\overline{x}_3 = \$40.00$, $s_3 = \$8.00$. \\
+         * warehouse 4: $M_4 = 2200$, $m_4 = 20$, $\overline{x}_4 = \$38.00$, $s_4 = \$5.00$. \\
+         * warehouse 5: $M_5 = 500$, $m_5 = 20$, $\overline{x}_5 = \$18.00$, $s_5 = \$6.00$.\\
+  
+\begin{enumerate}
+  \item[a/b.]  Find an estimate for the total value of items in all warehouses and obtain a 95 percent confidence interval. 
+  Note that we only get an item count for warehouses we sample.\\
+  \solution Since we don't have the total number of items in the inventory $M$ we will use the unbiased estimator of the total. 
+  Computing the estimator in r we get,\\
+  \textbf{Code:}
+  \begin{center}
+     \lstinputlisting{r3.txt}
+  \end{center}
+
+\end{enumerate}
+
+
+
+\end{exercise}
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,17 @@
+> Strata_means <- c(30, 40)
+> Strata_SSquared <-c(10, 15)
+> Strata_n <- c(30, 50)
+> Strata_m <- c(300, 200)
+> Strata_Proportion = Strata_m/sum(Strata_m)
+
+> Mean_estimator = sum(Strata_Proportion*Strata_means)
+[1] 34
+> Margin_error = 2*sqrt(sum(Strata_Proportion^2
+                            *((Strata_m - Strata_n)/Strata_n)
+                            *(Strata_SSquared/Strata_n)))
+
+[1] 2.212691
+
+> CI95 <- c(Mean_estimator + Margin_error,  
+          Mean_estimator - Margin_error)
+[1] 36.21269 31.78731

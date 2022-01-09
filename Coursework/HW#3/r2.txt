@@ -1,0 +1,18 @@
+strata_1 <- c(50, 100 ,75)
+strata_2 <- c(1,3,2)
+N <-c(5, 45)
+n <- c(3, 3)
+
+W = N/sum(N)
+[1] 0.1 0.9
+
+Stratified_Mean = W[1]*mean(strata_1) + W[2]*mean(strata_2) 
+[1] 9.3
+
+s_squared <- c(var(strata_1), var(strata_2))
+[1] 625   1
+Stratified_Mean_std = sqrt(sum(W^2*((N - n)/N)*(s_squared/n)))
+[1] 1.041793
+
+CI <- c(Stratified_Mean+2*Stratified_Mean_std, Stratified_Mean-2*Stratified_Mean_std)
+[1] 11.383587  7.216413

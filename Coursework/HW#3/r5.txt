@@ -1,0 +1,7 @@
+Optimal_Allocation = N*sqrt(p*(1-p))/sum(N*sqrt(p*(1-p)))
+    [1] 0.3122046 0.6877954
+
+
+Total_Samples = sum(N^2*(p*(1-p))/Optimal_Allocation)/
+                (sum(N)^2*((.05)^2/4)+sum(N*(p*(1-p))))
+    [1] 338.7552

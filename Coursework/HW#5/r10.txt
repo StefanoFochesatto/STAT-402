@@ -1,0 +1,12 @@
+> cor(x_samp, y_samp)
+    [1] 0.9260864
+> cor(x_samp^2, y_samp)
+    [1] 0.9307337
+    
+> scatterplot(x_samp^2, y_samp, 
++             regLine = TRUE, boxplots = FALSE, 
++             smooth = FALSE, 
+              xlab = 'x_samp squared', ylab = 'y_samp')
+> scatterplot(x_samp, y_samp, 
++             regLine = TRUE, boxplots = FALSE, 
++             smooth = FALSE, xlab = 'x_samp', ylab = 'y_samp')

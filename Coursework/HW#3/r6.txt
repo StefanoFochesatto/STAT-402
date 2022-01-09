@@ -1,0 +1,10 @@
+SRSProportion = sum(p*n)/sum(n)
+[1] 0.5167555
+
+SRSProportion_std = sqrt((sum(N) - sum(n))/sum(N)*
+            (SRSProportion*(1 - SRSProportion))/(sum(n)-1))
+[1] 0.02024024
+
+> CI = c(SRSProportion+2*SRSProportion_std, 
+            SRSProportion - 2*SRSProportion_std)
+[1] 0.557236 0.476275

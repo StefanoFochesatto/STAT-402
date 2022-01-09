@@ -1,0 +1,4 @@
+plot_number <- 1:10
+aerial_count <- c(5,0,0,3,3,2,8,6,4,4)
+ground_count <- c(8,0,2,6,5,4,20,9,6,8)
+df <- data.frame(plot_number, aerial_count, ground_count)

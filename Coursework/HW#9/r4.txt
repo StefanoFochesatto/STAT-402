@@ -1,0 +1,5 @@
+> reg_out = lm(CC~CPUE)
+> hold = predict(reg_out,newdata=data.frame(CPUE=0),interval="confidence")
+> hold
+       fit      lwr      upr
+1 329.7183 217.7909 441.6457

@@ -1,0 +1,9 @@
+> pop <- c(1, 2, 3, 4, 10)
+> Samp_one <- c(1, 3, 10)
+> Samp_two <- c(2, 4)
+> Sample_means <- c(mean(Samp_one),mean(Samp_two))
+    [1] 4.666667 3.000000
+> ExpectedValue = sum(.5*Sample_means)
+    [1] 3.833333
+> mean(pop)
+    [1] 4

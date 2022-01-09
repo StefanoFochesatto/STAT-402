@@ -1,0 +1,6 @@
+> SRSEst = mean(y_samp)*2000
+    [1] 577333.3
+> SRS_SE = sqrt(2000*(2000 - 15)*(var(y_samp)/15)) 
+    [1] 76474.85
+> SRS_CI = c(SRSEst + 2*SRS_SE, SRSEst - 2*SRS_SE)
+    [1] 730283.0 424383.6

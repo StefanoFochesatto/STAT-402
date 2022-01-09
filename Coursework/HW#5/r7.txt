@@ -1,0 +1,32 @@
+> SRS_Regression <- lm(True.Cover ~ Guess.at.Cover, data = SRS)
+
+lm(formula = True.Cover ~ Guess.at.Cover, data = SRS)
+
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)    
+(Intercept)    -0.04369    0.06210  -0.704 0.508104    
+Guess.at.Cover  1.01456    0.12546   8.086 0.000192 ***
+
+Residual standard error: 0.09004 on 6 degrees of freedom
+Multiple R-squared:  0.916,	Adjusted R-squared:  0.9019 
+F-statistic: 65.39 on 1 and 6 DF,  p-value: 0.0001917
+
+> est.mu_y = mean(SRS$True.Cover) + 1.01456*
+             (mean(df$Guess.at.Cover) - mean(SRS$Guess.at.Cover))
+    [1] 0.4610556
+
+> anova(SRS_Regression)
+Analysis of Variance Table
+Response: True.Cover
+               Df  Sum Sq Mean Sq F value    Pr(>F)    
+Guess.at.Cover  1 0.53011 0.53011  65.391 0.0001917 ***
+Residuals       6 0.04864 0.00811                      
+
+> MSE = 0.00811
+> est.V = ((length(df$Guess.at.Cover) - 8)/
+          length(df$Guess.at.Cover))*(MSE/8)
+    [1] 0.000811
+
+> ConfidenceInterval <- c(est.mu_y + 2*sqrt(est.V), 
+                          est.mu_y - 2*sqrt(est.V))
+    [1] 0.5180117 0.4040995

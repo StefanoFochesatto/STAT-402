@@ -1,0 +1,38 @@
+> SRS_Regression <- lm(y_samp ~ x_samp^2)
+Call:
+lm(formula = y_samp ~ x_samp^2)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-15.7000  -3.9728  -0.7839   4.8256  14.5347 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  -8.5759     2.1812  -3.932 0.000504 ***
+x_samp        6.1735     0.4753  12.988 2.25e-13 ***
+---
+
+Residual standard error: 6.473 on 28 degrees of freedom
+Multiple R-squared:  0.8576,	Adjusted R-squared:  0.8526 
+F-statistic: 168.7 on 1 and 28 DF,  p-value: 2.255e-13
+
+> est.mu_y = mean(y_samp) + 6.1735*(mean(X^2) - mean(x_samp^2))
+    [1] 18.72959
+
+
+> anova(SRS_Regression)
+Analysis of Variance Table
+
+Response: y_samp
+          Df Sum Sq Mean Sq F value    Pr(>F)    
+x_samp     1 7068.1  7068.1  168.68 2.255e-13 ***
+Residuals 28 1173.3    41.9                      
+---
+> MSE = 41.9
+> est.V = ((length(X) - length(y_samp))/length(X))*
+            (MSE/length(y_samp))
+    [1] 1.187167
+
+> ConfidenceInterval <- c(est.mu_y + 2*sqrt(est.V), 
+                          est.mu_y - 2*sqrt(est.V))
+    [1] 20.90874 16.55045

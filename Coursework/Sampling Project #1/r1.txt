@@ -1,0 +1,20 @@
+## Importing our Proportional Strata Variances
+Var_Strata <- c(1,2,4)
+
+
+## We have to multiply each value by 9 since our sampling unit is a 4 inch square and
+## the area was measured in feet squared. Doesn't affect allocation but is helpful for 
+## later analysis. 
+
+N_Main_Var_Strata = 9*2087
+N_Sparse_Var_Strata = 9*233
+N_Poor_Var_Strata = 9*87
+N_Total_Area = N_Main_Var_Strata + N_Sparse_Var_Strata + N_Poor_Var_Strata
+
+## Vectorizing N_i
+N_Strata <- c(N_Main_Var_Strata, N_Sparse_Var_Strata, N_Poor_Var_Strata)
+
+## Computing w_i
+Strata_Allocation <- N_Strata*sqrt(Var_Strata)/sum(N_Strata*sqrt(Var_Strata))
+Strata_Allocation * 12
+[1] 9.6675878 1.5263938 0.8060183

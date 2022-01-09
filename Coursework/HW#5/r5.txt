@@ -1,0 +1,29 @@
+> df <- read.csv('tabula-HW3stat402.csv')
+> SRS <- df[sample(nrow(df), 8),]
+   Plot True.Cover Guess.at.Cover
+1     1       0.40            0.4
+7     7       0.15            0.3
+39   39       0.25            0.2
+32   32       0.85            0.8
+33   33       0.70            0.7
+17   17       0.55            0.7
+26   26       0.10            0.2
+35   35       0.10            0.1
+> est.R = mean(SRS$True.Cover)/mean(SRS$Guess.at.Cover)
+    [1] 0.9117647
+> mu_x = mean(df$Guess.at.Cover)
+    [1] 0.4975
+> est.mu_y = est.R*mu_x
+    [1] 0.4536029
+
+> MSE <- sum((SRS$True.Cover - est.R*SRS$Guess.at.Cover)^2)
+            /(length(SRS$Guess.at.Cover) - 1)   
+    [1] 0.007726149
+
+> est.V = ((length(df$Guess.at.Cover) - 8)/
+            length(df$Guess.at.Cover))
+            *(MSE/8)
+    [1] 0.0007726149
+> ConfidenceInterval <- c(est.mu_y + 2*sqrt(est.V), 
+                          est.mu_y - 2*sqrt(est.V))
+    [1] 0.5091948 0.3980110

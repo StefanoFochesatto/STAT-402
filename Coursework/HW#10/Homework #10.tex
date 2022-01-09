@@ -1,0 +1,279 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% This top part of the document is called the 'preamble'.  Modify it with caution!
+%
+% The real document starts below where it says 'The main document starts here'.
+
+\documentclass[12pt]{article}
+
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{graphicx}
+\usepackage{float}
+% Comment the following line to use TeX's default font of Computer Modern.
+
+\usepackage{times,txfonts}
+
+
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheoremstyle{homework}% name of the style to be used
+  {18pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {12pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {}% name of font to use in the body of the theorem
+  {}% measure of space to indent
+  {\bfseries}% name of head font
+  {:}% punctuation between head and body
+  {2ex}% space after theorem head; " " = normal interword space
+  {}% Manually specify head
+\theoremstyle{homework} 
+
+% Set up an Exercise environment and a Solution label.
+\newtheorem*{exercisecore}{Exercise \@currentlabel}
+\newenvironment{exercise}[1]
+{\def\@currentlabel{#1}\exercisecore}
+{\endexercisecore}
+
+\newcommand{\localhead}[1]{\par\smallskip\noindent\textbf{#1}\nobreak\\}%
+\newcommand\solution{\localhead{Solution:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Stuff for getting the name/document date/title across the header
+\makeatletter
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot[C]{\ifnum \value{page} > 1\relax\thepage\fi}
+\fancyhead[L]{\ifx\@doclabel\@empty\else\@doclabel\fi}
+\fancyhead[C]{\ifx\@docdate\@empty\else\@docdate\fi}
+\fancyhead[R]{\ifx\@docauthor\@empty\else\@docauthor\fi}
+\headheight 15pt
+
+\def\doclabel#1{\gdef\@doclabel{#1}}
+\doclabel{Use {\tt\textbackslash doclabel\{MY LABEL\}}.}
+\def\docdate#1{\gdef\@docdate{#1}}
+\docdate{Use {\tt\textbackslash docdate\{MY DATE\}}.}
+\def\docauthor#1{\gdef\@docauthor{#1}}
+\docauthor{Use {\tt\textbackslash docauthor\{MY NAME\}}.}
+\makeatother
+
+% Shortcuts for blackboard bold number sets (reals, integers, etc.)
+\newcommand{\Reals}{\ensuremath{\mathbb R}}
+\newcommand{\Nats}{\ensuremath{\mathbb N}}
+\newcommand{\Ints}{\ensuremath{\mathbb Z}}
+\newcommand{\Rats}{\ensuremath{\mathbb Q}}
+\newcommand{\Cplx}{\ensuremath{\mathbb C}}
+%% Some equivalents that some people may prefer.
+\let\RR\Reals
+\let\NN\Nats
+\let\II\Ints
+\let\CC\Cplx
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% The main document start here.
+
+% The following commands set up the material that appears in the header.
+\doclabel{STAT 402: Homework 10}
+\docauthor{Stefano Fochesatto}
+\docdate{\today}
+
+
+%\textbf{Code:}
+%\begin{center}
+ %   \lstinputlisting{r1.txt}
+%\end{center}
+
+\begin{document}
+
+\begin{exercise}{1} What is a likelihood in general? What does it mean when an estimator is a maximum likelihood estimator?\\
+  \solution Likelihood is used to describe the joint probability of achieving our sampled data given certain model parameters. Said another way, 
+  we fix our sample $x$ and we vary our model parameters $\theta$ the likelihood gives us the probability of achieving $x$ for a certain $\theta$. Generally this 
+  is written in the form of a function $P(x|\theta)$ and the maximum likelihood estimator involves selecting model parameters which maximize said function. \\
+\end{exercise}
+\vspace{1in}
+
+\begin{exercise}{2} We are doing a small mark-recapture study. First we catch 20 fish in a lake and tag each one. Then, a few days later we catch 40 fish and notice that 6 were tagged.\\
+  \begin{enumerate}
+    \item[a.]Is this direct or indirect sampling? Why?\\ 
+    \solution This method would be direct mark-recapture sampling. In an indirect scheme we would decide prior to the sample the number of units we would mark and recapture, then on the recapture survey we 
+    would continue to survey fish until we reach the desired number of recaptures. In this method the size of the recapture sample is random $m$, not the number of recaptures themselves. 
+    \vspace{.15in}
+    \item[b.] Produce a 95 percent confidence interval for the population size (using either Lincoln-Petersen or Chapman estimator).\\
+    \solution Since the text describes the Chapman estimator as the one often used in practice, it is how we will proceed.\\  
+      \textbf{Code:}  
+      \begin{center}  
+         \lstinputlisting{r1.txt} 
+      \end{center}
+    \vspace{.15in}
+
+    \item[c.] What assumptions do we need to compute the mark-recapture estimator in (b)?\\
+    \solution For direct mark recapture sampling estimators  we assume that the second sample is indeed a SRS, without replacement, we assume that the population is closed, and we assume that 
+    our marked samples stayed mark for the second sample.
+  \end{enumerate}
+  
+\end{exercise}
+\vspace{1in}
+
+
+
+
+\begin{exercise}{3} Suppose we visited a site at five different equally- spaced times and trapped, marked and released animals each time. We will assume a closed model.\\
+  \begin{enumerate}
+    \item[a.] What is a closed model? When is it reasonable to assume that the population is closed? \\
+    \solution A closed model is one that does not allow immigration, emigrations, births, or deaths. It is reasonable to assume that 
+    a population is closed when the sampling sessions are closer together in time.
+    \vspace{.15in}
+    \item[b.] If the following data is what we obtained, look at the data (don't analyze it) and try to explain what might be happening (and which model, $M_0$, $M_t$, $M_h$, $M_{th}$, etc., would be appropriate).\\
+    \begin{equation*}
+      \begin{bmatrix}
+        0&0&1&0&0\\
+        1&0&0&0&0\\
+        1&0&0&0&0\\
+        0&1&0&0&0\\
+        1&0&0&0&0\\
+        1&0&0&0&0\\
+        0&1&0&0&0\\
+        0&0&1&0&0\\
+        0&0&0&1&0\\
+        0&0&1&0&0\\
+        0&1&0&0&0\\
+        1&0&0&0&0\\
+        0&0&0&1&0
+      \end{bmatrix}
+    \end{equation*} 
+    \solution  Given that the last sample session has no recaptures, and the total number of recaptures at each session seems to decrease I think the $M_t$ model, which allows the capture probability 
+    of each animal to change from session to session, would be appropriate. \\
+
+    Now, try to explain what type of closed population model might fit with this data:
+    \begin{equation*}
+      \begin{bmatrix}
+        1&1&1&0&1\\
+        0&0&1&0&0\\
+        0&1&0&0&0\\
+        0&0&1&0&1\\
+        1&1&1&1&1\\
+        0&1&1&1&1\\
+        0&0&0&0&1\\
+        1&0&1&0&0\\
+        0&0&0&1&0\\
+        1&1&1&1&0\\
+        0&1&0&1&0\\
+        0&1&0&0&0\\
+        1&1&1&1&1
+      \end{bmatrix}
+    \end{equation*}
+    Here I would say the probability of capture varies from animal to animal. We can see that there is large variation in the row sums of the matrix, while the column sum stay relatively that same. I would say the 
+    $M_h$ model would be appropriate. 
+  \end{enumerate}
+\end{exercise}
+\vspace{1in}
+
+
+\begin{exercise}{4} Run the following code in R and choose which model (based on AIC) seems to have the
+  best fit.  What abundance does this model estimate?\\
+  
+  \solution Fitting the capture data with the closedp() function, we get that the $M_b$ model achieves the best fit with the lowest AIC. I would also 
+  consider the $M_0$ given its relatively similar score and greater simplicity,  \\
+  \textbf{Code:}  
+  \begin{center}  
+     \lstinputlisting[basicstyle = \small]{r2.txt} 
+  \end{center}
+\end{exercise}
+\vspace{1in}
+
+
+
+\begin{exercise}{5}Consider the $M_t$ model, where the probabilities are different for each time period.  If there are 3 time periods, the parameters are $p_1, p_2, p_3$.\\
+  Suppose we have the dataset (one animal per line):
+  \begin{equation*}
+    \begin{bmatrix}
+      1&0&0\\
+      1&0&0\\
+      0&1&0\\
+      0&1&1
+    \end{bmatrix}
+  \end{equation*}
+  Write down the likelihood for this data. \\
+  \solution First let's consider the probability under $M_t$ for each pattern in the data, 
+  \begin{equation*}
+    \begin{bmatrix}
+      &\text{Pattern}& && \text{Prob under $M_t$}\\ 
+      1&0&0 && (p_1)(p_2 - 1)(p_3 - 1)\\
+      1&0&0 && (p_1)(p_2 - 1)(p_3 - 1)\\
+      0&1&0 && (p_1 - 1)(p_2)(p_3 - 1)\\
+      0&1&1 && (p_1 - 1)(p_2)(p_3)\\
+    \end{bmatrix}
+  \end{equation*}
+  Multiplying we get the following likelihood function, 
+  \begin{equation*}
+    L(p_1, p_2, p_3) = (p_1)^2(p_1 - 1)^2(p_2)^2(p_2 - 1)^2(p_3)(p_3 - 1)^3
+  \end{equation*}
+\end{exercise}
+\vspace{1in}
+
+\begin{exercise}{6} The following data will cause problems with the open population model unless we 
+  force equal capture probabilities across all times. Why do you think that is the case? 
+  (The last column is the number of times that pattern occurred, so that the pattern 1 0 0 0 occurred 7 times.)\\
+  \solution It is problematic to have only four sampling sessions and allow unequal capture probability mainly because we 
+  already have to throw out the first and last sessions because we cannot determine the difference between the capture probability and 
+  survival probability at the endpoints(if the last session was a zero, is it because the animal died or because we simply didn't recapture it).
+  If we are going to allow unequal probability it is best if we do many, many recaptures. \\
+  When we let capture probabilities be constant, survival probabilities can be calculated, as is shown in the following code example, \\
+  \textbf{Code:}  
+  \begin{center}  
+     \lstinputlisting[basicstyle = \small]{r3.txt} 
+  \end{center}
+
+  The data gives us a population estimate of 428.8 when the capture probabilities are constant, otherwise we get 421.1. \\
+
+\end{exercise}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

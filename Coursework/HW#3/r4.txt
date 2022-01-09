@@ -1,0 +1,16 @@
+N <- c(12000,24000)
+p <- c(.25,.65)
+n <- c(200, 400.4)
+W = N/sum(N)
+    [1] 0.3333333 0.6666667
+
+Stratified_Proportion = sum(W*p)
+    [1] 0.5166667
+
+Stratified_Proportion_std = 
+    sqrt(sum(W^2*((N - n)/N)*((p*(1-p))/(n-1))))
+    [1] 0.01875845
+
+CI = c(Stratified_Proportion+2*Stratified_Proportion_std, 
+        Stratified_Proportion - 2*Stratified_Proportion_std)
+    [1] 0.5541836 0.4791498

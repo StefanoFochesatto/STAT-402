@@ -1,0 +1,107 @@
+
+> dat = matrix(ncol=5,byrow=TRUE,
++   c(1, 0, 0, 0, 7,
++     0, 1, 0, 0, 20,
++     0, 0, 1, 0, 37,
++     0, 0, 0, 1, 70,
++     1, 1, 0, 0, 7,
++     1, 0, 1, 0, 11,
++     1, 0, 0, 1, 20,
++     0, 1, 1, 0, 22,
++     0, 1, 0, 1, 52,
++     0, 0, 1, 1, 55,
++     1, 1, 1, 0, 4,
++     1, 1, 0, 1, 13,
++     1, 0, 1, 1, 15,
++     0, 1, 1, 1, 38,
++     1, 1, 1, 1, 14))
+
+--------------------------------------------------------------------
+> openp(dat,dfreq=TRUE,m="up")
+Model fit:
+              deviance      df        AIC
+fitted model     6.011       8     91.887
+
+Test for trap effect:
+                                   deviance      df        AIC
+model with homogenous trap effect     3.555       7     91.431
+
+## Note that capture probabilities are not constant. 
+Capture probabilities:
+          estimate  stderr
+period 1        --      --
+period 2    0.4176  0.0517
+period 3    0.4664  0.0334
+period 4        --      --
+
+
+## Not all Survival probabilities can be computed. 
+Survival probabilities:
+               estimate  stderr
+period 1 -> 2         1       0
+period 2 -> 3         1       0
+period 3 -> 4        --      --
+
+Abundances:
+          estimate  stderr
+period 1        --      --
+period 2     407.1    44.4
+period 3     420.3    20.6
+period 4        --      --
+
+Number of new arrivals:
+               estimate  stderr
+period 1 -> 2        --      --
+period 2 -> 3      13.2    49.1
+period 3 -> 4        --      --
+
+Total number of units who ever inhabited the survey area:
+             estimate  stderr
+all periods     421.1       9
+
+Total number of captured units: 385 
+
+--------------------------------------------------------------------
+> openp(dat,dfreq=TRUE,m="ep")
+
+Model fit:
+              deviance      df        AIC
+fitted model    43.867      11    123.743
+
+Test for trap effect:
+                                   deviance      df        AIC
+model with homogenous trap effect     21.82      10    103.696
+
+## Note that capture probabilities are constant. 
+Capture probabilities:
+          estimate  stderr
+period 1    0.5387   0.019
+period 2    0.5387   0.019
+period 3    0.5387   0.019
+period 4    0.5387   0.019
+
+## Survival probabilities can be computed. 
+Survival probabilities:
+               estimate  stderr
+period 1 -> 2         1       0
+period 2 -> 3         1       0
+period 3 -> 4         1       0
+
+Abundances:
+          estimate  stderr
+period 1     168.9    13.4
+period 2     336.0    16.9
+period 3     428.8     8.8
+period 4     428.8     8.8
+
+Number of new arrivals:
+               estimate  stderr
+period 1 -> 2     167.1    23.0
+period 2 -> 3      92.8    19.4
+period 3 -> 4       0.0     0.0
+
+Total number of units who ever inhabited the survey area:
+             estimate  stderr
+all periods     428.8     8.8
+
+Total number of captured units: 385 

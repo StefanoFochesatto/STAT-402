@@ -1,0 +1,30 @@
+> N = 30
+> n = 5
+> Mi
+    [1] 2100  850 1500 2200  500
+> m_i
+    [1] 20 20 20 20 20
+> xbar
+    [1] 35 42 40 38 18
+> si
+    [1] 10 12  8  5  6
+
+## Estimated Total    
+> tau_est = (N/n)*sum(Mi*xbar)
+    [1] 1570800
+
+> mse = sum((Mi*xbar - (tau_est/N))^2)/(n-1)
+    [1] 909713000
+
+## Cluster vs Sample Variance
+> clusterVar = ((N-n)/N)*(N)^2*(mse/n)
+    [1] 1.36457e+11
+> SRSVar = (N/n)*sum(Mi^2*((Mi - m_i)/Mi)*(si^2/m_i))
+    [1] 242703600
+
+> se = sqrt(clusterVar + SRSVar)
+    [1] 369729.2
+
+# 95 Confidence Interval
+> CI = c(tau_est + 2*se, tau_est - 2*se)
+    [1] 2310258.3  831341.7

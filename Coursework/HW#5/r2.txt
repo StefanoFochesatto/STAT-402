@@ -1,0 +1,15 @@
+
+> R_estimator = mean(df$ground_count)/mean(df$aerial_count)
+    [1] 1.942857
+> MSE <- sum((df$ground_count - R_estimator*df$aerial_count)^2)
+            /(length(df$ground_count) - 1)
+    [1] 4.198277
+> mu_x = 4500/1000
+    [1] 4.5
+> Variance_R = ((1000 - 10)/1000)*(1/mu_x^2)*(MSE/10)
+    [1] 0.02052491
+> ConfidenceInterval <- c(R_estimator + 2*sqrt(Variance_R), 
+                            R_estimator - 2*sqrt(Variance_R))
+    [1] 2.229387 1.656327
+
+

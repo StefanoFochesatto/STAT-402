@@ -1,0 +1,32 @@
+N <- c(length(Strata_1$Plot), length(Strata_2$Plot), length(Strata_3$Plot))
+    [1] 15 23  2
+
+W = N/sum(N)
+    [1] 0.375 0.575 0.050
+
+## This sample was chosen with sample(), I just forgot to assign it. 
+Sampled_Strata_1 = c(0.10, 0.20 ,0.15)
+Sampled_Strata_2 = c(0.5, 0.7, 0.6)
+Sampled_Strata_3 = c(0.75, 0.75)
+
+##  Computing the mean of each strata
+Mean_Strata_1 = mean(Sampled_Strata_1)
+Mean_Strata_2 = mean(Sampled_Strata_2)
+Mean_Strata_3 = mean(Sampled_Strata_3)
+Mean_Strata = c(Mean_Strata_1, Mean_Strata_2, Mean_Strata_3)
+
+Stratified_Mean = sum(W*Mean_Strata)
+    [1] 0.43875
+
+## Computing S^2 for each strata
+Var_Strata_3 = var(Sampled_Strata_3)
+Var_Strata_2 = var(Sampled_Strata_2)
+Var_Strata_1 = var(Sampled_Strata_1)
+Var_Strata = c(Var_Strata_1, Var_Strata_2, Var_Strata_3)
+
+
+SE = sqrt(sum(W^2*((N - c(3,3,2))/N)*(Var_Strata/c(3,3,2))))
+    [1] 0.03243583
+
+CI = c(Stratified_Mean + 2*SE, Stratified_Mean - 2*SE)
+    [1] 0.5036217 0.3738783

@@ -1,0 +1,30 @@
+### Simple Random Sampling within Strata using R
+
+## SRS from each strata
+## Population
+P_l <- c(1:17882)
+P_m <- c(1:1580)
+P_h <- c(1:1239)
+
+## Sample Sizes
+n_l <- 9
+n_m <- 3
+n_h <- 3
+
+## SRS
+set.seed(28); samp_l <- sample(P_l, n_l, replace = F)
+set.seed(31); samp_m <- sample(P_m, n_m, replace = F)
+set.seed(14); samp_h <- sample(P_h, n_h, replace = F)
+
+## Randomizing the samples among samplers
+set.seed(42); samp_billy <- sample(c(paste(samp_l[1:3], "m"), 
+                                    paste(samp_m[1],"s"), 
+                                    paste(samp_h[1],"p")), 5, replace = F)
+
+set.seed(52); samp_stefano <- sample(c(paste(samp_l[4:6], "m"), 
+                                      paste(samp_m[2],"s"), 
+                                      paste(samp_h[2],"p")), 5, replace = F)
+
+set.seed(62); samp_bria <- sample(c(paste(samp_l[7:9], "m"), 
+                                    paste(samp_m[3],"s"),  
+                                    paste(samp_h[3],"p")), 5, replace = F)

@@ -1,0 +1,13 @@
+df <- read.csv('AdaptiveSampling.csv')
+Vec_of_tau <- df$count/(df$probability)
+Tau_est = mean(Vec_of_tau)
+    [1] 57.14674
+
+Var_Tau = var(Vec_of_tau)/length(Vec_of_tau)
+    [1] 61.86392
+
+se = sqrt(Var_Tau)
+    [1] 7.865362
+
+CI = c(Tau_est + 2*se, Tau_est - 2*se)
+    [1] 72.87746 41.41601

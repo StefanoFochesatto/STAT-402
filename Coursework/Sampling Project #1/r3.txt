@@ -1,0 +1,36 @@
+#Importing Data
+Strata_df <- read.csv('SamplingProject.csv')
+
+## Variance estimate for each strata. 
+s_squared <- c(var(na.omit(Strata_df$Main_Var_Strata)), 
+               var(na.omit(Strata_df$Sparse_Var_Strata)), 
+               var(na.omit(Strata_df$Poor_Var_Strata)))
+
+## Mean estimate for each strata. 
+xbar_strata <- c(mean(na.omit(Strata_df$Main_Var_Strata)), 
+                 mean(na.omit(Strata_df$Sparse_Var_Strata)), 
+                 mean(na.omit(Strata_df$Poor_Var_Strata)))
+
+## Pulling length of each strata. 
+n_strata <- c(length(na.omit(Strata_df$Main_Var_Strata)), 
+              length(na.omit(Strata_df$Sparse_Var_Strata)), 
+              length(na.omit(Strata_df$Poor_Var_Strata)))
+
+## Total Number of samples in each Strata
+N_Main_Var_Strata = 9*2087
+N_Sparse_Var_Strata = 9*233
+N_Poor_Var_Strata = 9*87
+N_Total_Area = N_Main_Var_Strata + N_Sparse_Var_Strata + N_Poor_Var_Strata
+
+## Vectorizing N_i
+N_Strata <- c(N_Main_Var_Strata, N_Sparse_Var_Strata, N_Poor_Var_Strata)
+
+## Computing Total Population Estimator. 
+Total_estimator = sum(N_Strata*xbar_strata)
+[1] 5623940
+
+## Computing 95% CI interval. 
+Margin_of_error = 2*sqrt(sum(N_Strata*(N_Strata - n_strata)*(s_squared/n_strata)))
+[1] 1090437
+CI = c(Total_estimator + Margin_of_error, Total_estimator - Margin_of_error)
+[1] 6714377 4533503

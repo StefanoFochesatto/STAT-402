@@ -1,0 +1,22 @@
+> reg = lm(y_samp ~ x_samp)
+Coefficients:
+(Intercept)       x_samp  
+    -63.717        1.333  
+
+> regEst = -63.717 +1.333*(512400)  
+    [1] 682965.5
+
+> anova(reg)
+Analysis of Variance Table
+Response: y_samp
+          Df Sum Sq Mean Sq F value    Pr(>F)    
+x_samp     1 305986  305986  1178.4 3.846e-14 ***
+Residuals 13   3376     260                      
+---
+
+> regEst_var = 2000^2((2000 - 15)/2000)*(260/15)
+    [1] 68813333
+
+
+> CI = c(regEst + 2*sqrt(regEst_var),regEst - 2*sqrt(regEst_var))
+    [1] 699556.2 666374.7

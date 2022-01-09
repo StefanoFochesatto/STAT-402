@@ -1,0 +1,228 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% This top part of the document is called the 'preamble'.  Modify it with caution!
+%
+% The real document starts below where it says 'The main document starts here'.
+
+\documentclass[12pt]{article}
+
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{listings}
+
+% Comment the following line to use TeX's default font of Computer Modern.
+\usepackage{times,txfonts}
+
+
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheoremstyle{homework}% name of the style to be used
+  {18pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {12pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {}% name of font to use in the body of the theorem
+  {}% measure of space to indent
+  {\bfseries}% name of head font
+  {:}% punctuation between head and body
+  {2ex}% space after theorem head; " " = normal interword space
+  {}% Manually specify head
+\theoremstyle{homework} 
+
+% Set up an Exercise environment and a Solution label.
+\newtheorem*{exercisecore}{Exercise \@currentlabel}
+\newenvironment{exercise}[1]
+{\def\@currentlabel{#1}\exercisecore}
+{\endexercisecore}
+
+\newcommand{\localhead}[1]{\par\smallskip\noindent\textbf{#1}\nobreak\\}%
+\newcommand\solution{\localhead{Solution:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Stuff for getting the name/document date/title across the header
+\makeatletter
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot[C]{\ifnum \value{page} > 1\relax\thepage\fi}
+\fancyhead[L]{\ifx\@doclabel\@empty\else\@doclabel\fi}
+\fancyhead[C]{\ifx\@docdate\@empty\else\@docdate\fi}
+\fancyhead[R]{\ifx\@docauthor\@empty\else\@docauthor\fi}
+\headheight 15pt
+
+\def\doclabel#1{\gdef\@doclabel{#1}}
+\doclabel{Use {\tt\textbackslash doclabel\{MY LABEL\}}.}
+\def\docdate#1{\gdef\@docdate{#1}}
+\docdate{Use {\tt\textbackslash docdate\{MY DATE\}}.}
+\def\docauthor#1{\gdef\@docauthor{#1}}
+\docauthor{Use {\tt\textbackslash docauthor\{MY NAME\}}.}
+\makeatother
+
+% Shortcuts for blackboard bold number sets (reals, integers, etc.)
+\newcommand{\Reals}{\ensuremath{\mathbb R}}
+\newcommand{\Nats}{\ensuremath{\mathbb N}}
+\newcommand{\Ints}{\ensuremath{\mathbb Z}}
+\newcommand{\Rats}{\ensuremath{\mathbb Q}}
+\newcommand{\Cplx}{\ensuremath{\mathbb C}}
+%% Some equivalents that some people may prefer.
+\let\RR\Reals
+\let\NN\Nats
+\let\II\Ints
+\let\CC\Cplx
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% The main document start here.
+
+% The following commands set up the material that appears in the header.
+\doclabel{STAT 402: Homework 1}
+\docauthor{Stefano Fochesatto}
+\docdate{\today}
+
+\begin{document}
+
+
+
+\begin{exercise}{1} Suppose we know the values from the populations, 
+    \begin{equation*}
+    \begin{tabular}{c|c}
+        Plot & Number of Weeds \\
+        \hline
+        1&4\\
+        2&8\\
+        3&5\\
+        4&7\\
+        5&5\\
+        6&12
+    \end{tabular}
+\end{equation*}
+Taking a sample consisting of plots 1, 3, 5 and 6,
+\begin{enumerate}
+    \item Compute the mean and standard deviation of the population. 
+    Is this a parameter or a statistic?
+    \solution Computing the mean of the population,
+    \begin{equation*}
+        \mu = \dfrac{4 + 8 + 5 + 7 + 5 + 12}{6} = \dfrac{41}{6}\approx 6.833
+    \end{equation*}
+    Computing the standard deviation of the population,
+    \begin{equation*}
+        \sigma =\left(\dfrac{(4 - \mu)^2+(8 - \mu)^2+(5 - \mu)^2+(7 - \mu)^2+(5 - \mu)^2+(12 - \mu)^2}{6}\right)^{\frac{1}{2}} = \left(\frac{257}{6}\right)^{\frac{1}{2}} \approx 2.62
+    \end{equation*}
+    These are parameters since they are computed with the entire population.
+    \item Compute the mean and standard deviation of the sample. Is this a 
+    parameter or a statistic?
+    \solution Computing the mean of the sample,
+    \begin{equation*}
+        \bar{x} = \dfrac{4 + 5 + 5 + 12}{4} = \frac{13}{2} = 6.5
+    \end{equation*}
+    Computing the standard deviation,
+    \begin{equation*}
+        S =\left(\dfrac{(4 - \bar{x})^2+(5 - \bar{x})^2+(5 - \bar{x})^2+(12 - \bar{x})^2}{4}\right)^{\frac{1}{2}} = \left(\frac{41}{4}\right)^{\frac{1}{2}} \approx 3.69
+    \end{equation*}
+    These are statistics since they are computed using only a sample of the population. 
+\end{enumerate}
+\end{exercise}
+\vspace{1in}
+
+\begin{exercise}{2} What IS a sampling distribution?\\
+    The sampling distribution of a statistic describes the probability of the values that that
+    statistic can take on.
+\end{exercise}
+\vspace{1in}
+
+\begin{exercise}{3} We are interested in the average number of trees on three small islands. Unknown to 
+    us, the numbers are 20 trees, 30 trees, and 25 trees. We can only afford to visit two islands. We use a simple
+    random sample without replacement, so that all samples are equally likely. \\
+    \begin{enumerate}
+        \item Write out all possible samples, 
+        \begin{equation*}
+            \begin{tabular}{c|c}
+                Index & Sample \\
+                \hline
+                1&20, 30\\
+                2&20, 25\\
+                3&25, 30
+            \end{tabular}
+        \end{equation*}
+        \item Find the sampling distribution of the average sample. 
+        \begin{equation*}
+            \begin{tabular}{c|c|c|c}
+                Index & Sample & $\hat{x}$ & $P(\hat{X} = \hat{x})$ \\
+                \hline
+                1&20, 30 & 25&$1/3$\\
+                2&20, 25 & 22.5 &$1/3$\\
+                3&25, 30 & 27.5 &$1/3$
+            \end{tabular}
+        \end{equation*}
+        \item Find the expected value of the sampling distribution, is this an unbiased estimator?
+        \begin{equation*}
+            E(\hat{X}) = \frac{1}{3}(25 + 22.5 + 27.5) = 25
+        \end{equation*}
+        \begin{equation*}
+            \mu = \dfrac{20 + 25 + 30}{3} = 25
+        \end{equation*}
+        Since $E(\hat{X}) = \mu$ we know that $E(\hat{X})$ is an unbiased estimator. 
+        \begin{equation*}
+            V(\hat{X}) = \frac{1}{3}(25^2 + 22.5^2 + 27.5^2) - 25^2 \approx 4.166
+        \end{equation*}
+        \item What are two desirable properties in an estimator?\\
+        A good estimator is unbiased, has the minimal variance, and high resistance to outliers. 
+    \end{enumerate}
+\end{exercise}
+\vspace{1in}
+
+\begin{exercise}{5}Suppose we have estimated moose populations on two islands.
+    Each island was sampled independently.  The estimated count from the first island is $X = 120$ with a 
+    standard deviation (standard error) equal to 10.  The estimated count from the second island is $Y = 200$ with a standard error of 40.  
+    Find an estimate of the total moose on both islands, along with a standard error for this total. 
+    Then create a 95 percent confidence interval for the total number of moose on both islands.\\
+    \solution  Consider the following estimator $\tau$ for the total number of moose on both islands,
+    \begin{equation*}
+        E(\tau) = E(X + Y) = E(X) + E(Y) = 120 + 200 = 320 
+    \end{equation*}
+    Note that the total number of sampling units $N = 2$ so we get the following,
+   Therefore we also know that, 
+    \begin{equation*}
+        V(\tau) = V(X + Y) = V(X) + V(Y) = 10^2 + 40^2 = 1700.
+    \end{equation*}
+    Computing the standard error we get that, 
+    \begin{equation*}
+        \tau_{S.E} = \frac{1700}{2}^{1/2} \approx 29.15
+    \end{equation*}
+    Finally we get a 95 percent confidence interval of 
+    \begin{equation*}
+        95_{CI} = (320 + 2(29.15), 320 - 2(29.15)) = (378.3, 261.7)
+    \end{equation*}
+\end{exercise}
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

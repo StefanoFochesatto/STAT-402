@@ -1,0 +1,17 @@
+
+> Strata_means <- c(2500, 4000, 5500)
+> Strata_SSquared <- c(500, 750, 750)
+> Strata_n <- c(120, 150, 130)
+> Strata_N <- c(20000,30000,30000)
+> Strata_Proportion = Strata_n/400
+
+> Mean_estimator = sum(Strata_Proportion*Strata_means)
+[1] 4037.5
+
+> Margin_error = 2*sqrt(sum(Strata_Proportion^2
+                        *((Strata_N - Strata_n)/Strata_n)
+                        *(Strata_SSquared/Strata_n)))
+
+> CI95 <- c(Mean_estimator + Margin_error,
+            Mean_estimator - Margin_error)
+[1] 4074.49 4000.51

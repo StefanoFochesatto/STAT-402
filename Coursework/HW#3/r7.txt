@@ -1,0 +1,10 @@
+Strata_1 = subset(df, Guess.at.Cover <= .4)
+Strata_2 = subset(df, Guess.at.Cover > .4 & Guess.at.Cover <= .8 )
+Strata_3 = subset(df, Guess.at.Cover > .8 )
+
+sample(Strata_1$True.Cover, 3 )
+    [1] 0.10 0.20 0.15
+sample(Strata_2$True.Cover, 3 )
+    [1] 0.5 0.7 0.6
+sample(Strata_3$True.Cover, 2)
+    [1] 0.75 0.75

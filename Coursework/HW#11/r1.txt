@@ -1,0 +1,4 @@
+> y = (1/mean(P11))*exp((-P11)/mean(P11))
+> prod(y)
+>  -2*log(prod(y)) + 2
+[1] 194.6501

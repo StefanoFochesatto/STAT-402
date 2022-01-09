@@ -1,0 +1,7 @@
+> Tau_y = 4500*R_estimator
+    [1] 8742.857
+> Variance_Tau_y = (1000^2)*((1000 - 10)/1000)*(MSE/10)
+    [1] 415629.4
+> ConfidenceInterval <- c(Tau_y + 2*sqrt(Variance_Tau_y), 
+                        Tau_y - 2*sqrt(Variance_Tau_y))
+    [1] 10032.244  7453.471

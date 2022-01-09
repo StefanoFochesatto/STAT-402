@@ -1,0 +1,13 @@
+> prob <- c( 0.3, 0.5, 0.1, 0.4, 0.6, 
+            0.2, 0.4, 0.5)
+> EstTotal =  sum(1/prob)
+[1] 29
+
+> se = sqrt(sum((1 - prob)/prob^2))
+[1] 11.4188
+
+> CI <- c(EstTotal + 2*se, EstTotal - 2*se)
+    51.837591  6.162409
+
+> CI <- c(EstTotal + 2*se, length(prob))
+     51.83759  8.00000

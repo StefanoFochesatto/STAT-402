@@ -1,0 +1,8 @@
+> mu_x = mean(SRS$Guess.at.Cover)
+    [1] 0.425
+> est.mu_y = est.R*mu_x
+    [1] 0.3875
+> ConfidenceInterval <- c(est.mu_y + 2*sqrt(est.V), 
+                        est.mu_y - 2*sqrt(est.V))
+    [1] 0.4430919 0.3319081
+

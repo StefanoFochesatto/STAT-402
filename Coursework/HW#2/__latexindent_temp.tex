@@ -1,0 +1,176 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% This top part of the document is called the 'preamble'.  Modify it with caution!
+%
+% The real document starts below where it says 'The main document starts here'.
+
+\documentclass[12pt]{article}
+
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{enumerate}
+\usepackage{listings}
+
+% Comment the following line to use TeX's default font of Computer Modern.
+\usepackage{times,txfonts}
+
+
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+  \hskip -\arraycolsep
+  \let\@ifnextchar\new@ifnextchar
+  \array{#1}}
+\makeatother
+
+\newtheoremstyle{homework}% name of the style to be used
+  {18pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {12pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {}% name of font to use in the body of the theorem
+  {}% measure of space to indent
+  {\bfseries}% name of head font
+  {:}% punctuation between head and body
+  {2ex}% space after theorem head; " " = normal interword space
+  {}% Manually specify head
+\theoremstyle{homework} 
+
+% Set up an Exercise environment and a Solution label.
+\newtheorem*{exercisecore}{Exercise \@currentlabel}
+\newenvironment{exercise}[1]
+{\def\@currentlabel{#1}\exercisecore}
+{\endexercisecore}
+
+\newcommand{\localhead}[1]{\par\smallskip\noindent\textbf{#1}\nobreak\\}%
+\newcommand\solution{\localhead{Solution:}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Stuff for getting the name/document date/title across the header
+\makeatletter
+\RequirePackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot[C]{\ifnum \value{page} > 1\relax\thepage\fi}
+\fancyhead[L]{\ifx\@doclabel\@empty\else\@doclabel\fi}
+\fancyhead[C]{\ifx\@docdate\@empty\else\@docdate\fi}
+\fancyhead[R]{\ifx\@docauthor\@empty\else\@docauthor\fi}
+\headheight 15pt
+
+\def\doclabel#1{\gdef\@doclabel{#1}}
+\doclabel{Use {\tt\textbackslash doclabel\{MY LABEL\}}.}
+\def\docdate#1{\gdef\@docdate{#1}}
+\docdate{Use {\tt\textbackslash docdate\{MY DATE\}}.}
+\def\docauthor#1{\gdef\@docauthor{#1}}
+\docauthor{Use {\tt\textbackslash docauthor\{MY NAME\}}.}
+\makeatother
+
+% Shortcuts for blackboard bold number sets (reals, integers, etc.)
+\newcommand{\Reals}{\ensuremath{\mathbb R}}
+\newcommand{\Nats}{\ensuremath{\mathbb N}}
+\newcommand{\Ints}{\ensuremath{\mathbb Z}}
+\newcommand{\Rats}{\ensuremath{\mathbb Q}}
+\newcommand{\Cplx}{\ensuremath{\mathbb C}}
+%% Some equivalents that some people may prefer.
+\let\RR\Reals
+\let\NN\Nats
+\let\II\Ints
+\let\CC\Cplx
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 
+% The main document start here.
+
+% The following commands set up the material that appears in the header.
+\doclabel{STAT 402: Homework 2}
+\docauthor{Stefano Fochesatto}
+\docdate{\today}
+
+\begin{document}
+
+\begin{exercise}{1} What is a simple random sample? If all sampling units have the same probability of being
+    in the sample, is this always a simple random sample? Why or why not?\\
+    \solution A simple random sample(SRS) is a sampling scheme that comes in two varieties, sampling with replacement 
+    and sampling without replacement. In a SRS with replacements, every sample is equally likely and after sampling every sampling
+    unit is returned to the population with the chance of being sampled again. In a SRS without replacement, after sampling, the sampling 
+    unit is not returned to the population. The simple random sample can be performed on a variety of populations where sampling units have 
+    different probabilities of being sampled ie. Gaussian Distributed, the key point is that every $sample$ is equally likely. 
+\end{exercise}
+\vspace{1in}
+
+\begin{exercise}{2} Use R to take a simple random sample of size $n = 4$(without replacement) from this population
+    $10,11,13,11,10,6,22,15,14,23$. Please include your output in the homework. Use this sample to compute your estimator of 
+    the population mean and find its standard error and a 95 percent confidence interval.
+
+    \solution Note that we are using a SRS without replacement on a relativity small sample, therefore when 
+    computing the standard error we must use the finite population correction. \\
+    \textbf{Code:}
+    \begin{center}
+        \lstinputlisting{r1.txt}
+    \end{center}
+\end{exercise}
+\vspace{1in}
+
+
+\begin{exercise}{3} We want to know the total number of moose in an area. Suppose we have divided 
+    the region into $N = 200$ quadrat, our guess is that the standard deviation of moose counts is around $s = 3$
+    moose and we would like a margin of error of less than $\pm$ 100 moose. How many sampling units must we visit. \\
+    \solution Taking the formula for the margin of error using standard error with the 
+    finite population correction and solving it for $n$ we get, 
+    \begin{align*}
+        n &= \dfrac{N\sigma^2}{(N-1)\frac{B^2}{4N^2} + \sigma^2}\\
+          &= \dfrac{200 (3)^2}{(200-1)\frac{100^2}{4 (200)^2} + (3)^2}\\
+          &\approx 83.965
+    \end{align*}
+\end{exercise}
+\vspace{1in}
+
+
+\begin{exercise}{4} Suppose we had decided to sample $n = 12$ of the quadrat and got a sample average of 
+    14 moose per quadrat and a sample variance of $s^2 = 125$ square moose per quadrat. Find an estimate of teh total
+    number of moose, along with it's standard error and then construct a 95 percent confidence interval for the total number of moose. \\
+    \solution Given that there are 100 quadrat, and the expected value for the mean of each quadrat is 14 a good estimator for the total population would
+        \begin{equation*}
+            t = 100*E(\bar{x}) = 1400.
+        \end{equation*}
+    Since the SRS at each quadrat are independent we can similarly estimate the variance, 
+        \begin{equation*}
+            V(t) = 100*V(\bar{x}) = 12500
+        \end{equation*}
+    Computing the standard error, 
+    \begin{equation*}
+        SE = \sqrt(12500) = 111.8
+    \end{equation*}
+    Computing the $95\%$ confidence interval for the total population
+    \begin{equation*}
+        95\% CI = (1623.6, 1176.4).
+    \end{equation*}
+\end{exercise}
+\vspace{1in}
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
